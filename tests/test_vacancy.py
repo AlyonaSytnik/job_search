@@ -1,4 +1,5 @@
 import pytest
+
 from src.vacancy import Vacancy
 
 
@@ -9,20 +10,20 @@ def sample_vacancies():
             title="Python Developer",
             url="http://example.com/python",
             salary={"from": 100000, "to": 150000, "currency": "RUR"},
-            description="Разработчик на Python с опытом работы"
+            description="Разработчик на Python с опытом работы",
         ),
         Vacancy(
             title="Java Developer",
             url="http://example.com/java",
             salary={"from": 120000, "to": 180000, "currency": "RUR"},
-            description="Разработчик Java с знанием Spring"
+            description="Разработчик Java с знанием Spring",
         ),
         Vacancy(
             title="Intern",
             url="http://example.com/intern",
             salary={},
-            description="Стажировка для начинающих разработчиков"
-        )
+            description="Стажировка для начинающих разработчиков",
+        ),
     ]
 
 
@@ -32,7 +33,7 @@ class TestVacancyInit:
             title="Test",
             url="http://test.com",
             salary={"from": 1000, "to": 2000, "currency": "USD"},
-            description="Test description"
+            description="Test description",
         )
         assert vacancy.title == "Test"
         assert vacancy.salary["from"] == 1000
@@ -44,7 +45,7 @@ class TestVacancyInit:
             title="Test",
             url="http://test.com",
             salary=None,
-            description="Test description"
+            description="Test description",
         )
         assert vacancy.salary["from"] == 0
         assert vacancy.salary["to"] == 0
@@ -55,7 +56,7 @@ class TestVacancyInit:
             title="Test",
             url="http://test.com",
             salary={"from": 1000, "currency": "EUR"},
-            description="Test description"
+            description="Test description",
         )
         assert vacancy.salary["from"] == 1000
         assert vacancy.salary["to"] == 0
@@ -68,7 +69,7 @@ class TestVacancyProperties:
             title="Test",
             url="http://test.com",
             salary={"from": 1000, "to": 2000, "currency": "USD"},
-            description="Test description"
+            description="Test description",
         )
         assert vacancy.avg_salary == 1500
 
@@ -77,7 +78,7 @@ class TestVacancyProperties:
             title="Test",
             url="http://test.com",
             salary={"from": 1000, "currency": "USD"},
-            description="Test description"
+            description="Test description",
         )
         assert vacancy.avg_salary == 1000
 
@@ -86,7 +87,7 @@ class TestVacancyProperties:
             title="Test",
             url="http://test.com",
             salary={"to": 2000, "currency": "USD"},
-            description="Test description"
+            description="Test description",
         )
         assert vacancy.avg_salary == 2000
 
@@ -95,7 +96,7 @@ class TestVacancyProperties:
             title="Test",
             url="http://test.com",
             salary={},
-            description="Test description"
+            description="Test description",
         )
         assert vacancy.avg_salary == 0
 
@@ -112,13 +113,10 @@ class TestVacancyComparisons:
             title="A",
             url="http://a.com",
             salary={"from": 1000, "to": 2000},
-            description="Test"
+            description="Test",
         )
         v2 = Vacancy(
-            title="B",
-            url="http://b.com",
-            salary={"from": 1500},
-            description="Test"
+            title="B", url="http://b.com", salary={"from": 1500}, description="Test"
         )
         assert v1 == v2  # Обе имеют avg_salary = 1500
 
@@ -129,7 +127,7 @@ class TestVacancyStringRepresentation:
             title="Test",
             url="http://test.com",
             salary={"from": 1000, "to": 2000, "currency": "USD"},
-            description="Test description"
+            description="Test description",
         )
         s = str(vacancy)
         assert "Вакансия: Test" in s
@@ -142,7 +140,7 @@ class TestVacancyStringRepresentation:
             title="Test",
             url="http://test.com",
             salary={"to": 2000, "currency": "USD"},
-            description="Test description"
+            description="Test description",
         )
         s = str(vacancy)
         assert "Зарплата: до 2000 USD" in s
@@ -152,7 +150,7 @@ class TestVacancyStringRepresentation:
             title="Test",
             url="http://test.com",
             salary={},
-            description="Test description"
+            description="Test description",
         )
         s = str(vacancy)
         # Обновляем проверку в соответствии с фактической реализацией
@@ -171,15 +169,15 @@ class TestVacancyClassMethods:
                 "salary": {"from": 1000, "to": 2000, "currency": "USD"},
                 "snippet": {
                     "requirement": "Python knowledge",
-                    "responsibility": "Develop apps"
-                }
+                    "responsibility": "Develop apps",
+                },
             },
             {
                 "name": "Manager",
                 "alternate_url": "http://manager.com",
                 "salary": None,
-                "snippet": {}
-            }
+                "snippet": {},
+            },
         ]
         vacancies = Vacancy.cast_to_object_list(json_data)
         assert len(vacancies) == 2

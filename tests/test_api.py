@@ -1,6 +1,8 @@
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
+
 from requests.exceptions import HTTPError
+
 from src.api import BaseAPI, HHApi
 
 
@@ -26,11 +28,11 @@ class TestHHApi(unittest.TestCase):
         self.mock_response = {
             "items": [
                 {"id": "1", "name": "Python Developer", "salary": {"from": 100000}},
-                {"id": "2", "name": "Senior Python Developer", "salary": None}
+                {"id": "2", "name": "Senior Python Developer", "salary": None},
             ]
         }
 
-    @patch('requests.get')
+    @patch("requests.get")
     def test_get_vacancies_success(self, mock_get):
         """Тестируем успешный запрос вакансий"""
         # Настраиваем mock
@@ -45,11 +47,11 @@ class TestHHApi(unittest.TestCase):
         # Проверяем результаты
         mock_get.assert_called_once_with(
             "https://api.hh.ru/vacancies",
-            params={"text": self.test_query, "per_page": 100, "area": 1}
+            params={"text": self.test_query, "per_page": 100, "area": 1},
         )
         self.assertEqual(result, self.mock_response["items"])
 
-    @patch('requests.get')
+    @patch("requests.get")
     def test_get_vacancies_http_error(self, mock_get):
         """Тестируем обработку HTTP ошибки"""
         # Настраиваем mock для вызова исключения
@@ -61,7 +63,7 @@ class TestHHApi(unittest.TestCase):
         with self.assertRaises(HTTPError):
             self.api.get_vacancies(self.test_query)
 
-    @patch('requests.get')
+    @patch("requests.get")
     def test_get_vacancies_empty_result(self, mock_get):
         """Тестируем обработку пустого результата"""
         # Настраиваем mock с пустым ответом
@@ -77,5 +79,5 @@ class TestHHApi(unittest.TestCase):
         self.assertEqual(result, [])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

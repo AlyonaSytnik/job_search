@@ -1,7 +1,9 @@
-import pytest
 import json
 import os
 from unittest.mock import mock_open, patch
+
+import pytest
+
 from src.fileworker import BaseWorker, JSONWorker, Vacancy
 
 
@@ -33,14 +35,14 @@ class TestJSONWorker:
             "title": "Python Developer",
             "description": "Разработчик Python",
             "salary": {"from": 100000, "to": 150000, "currency": "RUR"},
-            "url": "http://example.com"
+            "url": "http://example.com",
         },
         {
             "title": "Java Developer",
             "description": "Разработчик Java",
             "salary": {"from": 120000, "to": 180000, "currency": "RUR"},
-            "url": "http://example.com"
-        }
+            "url": "http://example.com",
+        },
     ]
 
     @pytest.fixture
@@ -59,7 +61,7 @@ class TestJSONWorker:
             title="Python Developer",
             description="Разработчик Python",
             salary={"from": 100000, "to": 150000, "currency": "RUR"},
-            url="http://example.com"
+            url="http://example.com",
         )
 
     def test_add_vacancy(self, worker, sample_vacancy):
@@ -135,7 +137,9 @@ class TestJSONWorker:
 
         assert worker._load_vacancies() == []
 
-    @patch("builtins.open", new_callable=mock_open, read_data=json.dumps(SAMPLE_VACANCIES))
+    @patch(
+        "builtins.open", new_callable=mock_open, read_data=json.dumps(SAMPLE_VACANCIES)
+    )
     def test_load_vacancies_success(self, mock_file, worker):
         """Тестируем успешную загрузку вакансий"""
         result = worker._load_vacancies()

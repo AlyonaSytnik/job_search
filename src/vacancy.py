@@ -32,7 +32,9 @@ class Vacancy:
     def __str__(self) -> str:
         salary_from = f"от {self.salary['from']}" if self.salary["from"] else ""
         salary_to = f"до {self.salary['to']}" if self.salary["to"] else ""
-        currency = self.salary["currency"] if self.salary["currency"] != "не указана" else ""
+        currency = (
+            self.salary["currency"] if self.salary["currency"] != "не указана" else ""
+        )
 
         salary_parts = [salary_from, salary_to, currency]
         salary = " ".join(part for part in salary_parts if part).strip()
@@ -47,9 +49,7 @@ class Vacancy:
         )
 
     @classmethod
-    def cast_to_object_list(
-        cls, vacancies_json: list[dict]
-    ) -> list["Vacancy"]:
+    def cast_to_object_list(cls, vacancies_json: list[dict]) -> list["Vacancy"]:
         return [
             cls(
                 title=v.get("name", "Без названия"),

@@ -1,14 +1,10 @@
+from unittest.mock import mock_open, patch
+
 import pytest
-from unittest.mock import patch, mock_open
-from src.utils import (
-    print_vacancies,
-    filter_vacancies,
-    get_vacancies_by_salary,
-    sort_vacancies,
-    get_top_vacancies,
-    save_filtered_results,
-    Vacancy
-)
+
+from src.utils import (Vacancy, filter_vacancies, get_top_vacancies,
+                       get_vacancies_by_salary, print_vacancies,
+                       save_filtered_results, sort_vacancies)
 
 
 @pytest.fixture
@@ -18,20 +14,20 @@ def sample_vacancies():
             title="Python Developer",
             description="Разработчик на Python с опытом работы",
             salary={"from": 100000, "to": 150000, "currency": "RUR"},
-            url="http://example.com"
+            url="http://example.com",
         ),
         Vacancy(
             title="Java Developer",
             description="Разработчик Java с знанием Spring",
             salary={"from": 120000, "to": 180000, "currency": "RUR"},
-            url="http://example.com"
+            url="http://example.com",
         ),
         Vacancy(
             title="Senior Python Developer",
             description="Опытный Python разработчик",
             salary={"from": 150000, "to": 200000, "currency": "RUR"},
-            url="http://example.com"
-        )
+            url="http://example.com",
+        ),
     ]
 
 

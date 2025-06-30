@@ -44,9 +44,11 @@ class JSONWorker(BaseWorker):
                         match = False
                     else:
                         # Вакансия должна полностью попадать в запрошенный диапазон
-                        salary_from = v.salary.get('from', 0)
-                        salary_to = v.salary.get('to', float('inf'))
-                        if not (value['from'] <= salary_from and salary_to <= value['to']):
+                        salary_from = v.salary.get("from", 0)
+                        salary_to = v.salary.get("to", float("inf"))
+                        if not (
+                            value["from"] <= salary_from and salary_to <= value["to"]
+                        ):
                             match = False
                 elif key == "keyword":
                     if value.lower() not in (v.title + v.description).lower():
