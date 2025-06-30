@@ -30,12 +30,14 @@ class Vacancy:
         return self.avg_salary == other.avg_salary
 
     def __str__(self) -> str:
-        salary_from = (
-            f"от {self.salary['from']}" if self.salary["from"] else ""
-        )
+        salary_from = f"от {self.salary['from']}" if self.salary["from"] else ""
         salary_to = f"до {self.salary['to']}" if self.salary["to"] else ""
-        salary = f"{salary_from} {salary_to} {self.salary['currency']}".strip()
-        salary = salary if salary else "Зарплата не указана"
+        currency = self.salary["currency"] if self.salary["currency"] != "не указана" else ""
+
+        salary_parts = [salary_from, salary_to, currency]
+        salary = " ".join(part for part in salary_parts if part).strip()
+        salary = salary if salary else "не указана"
+
         return (
             f"Вакансия: {self.title}\n"
             f"Зарплата: {salary}\n"
