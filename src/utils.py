@@ -34,9 +34,7 @@ def get_vacancies_by_salary(
 
     try:
         salary_from, salary_to = map(int, salary_range.split("-"))
-        return [
-            v for v in vacancies if salary_from <= v.avg_salary <= salary_to
-        ]
+        return [v for v in vacancies if salary_from <= v.avg_salary <= salary_to]
     except ValueError:
         print("Некорректный формат. Используйте формат: FROM-TO")
         return vacancies
